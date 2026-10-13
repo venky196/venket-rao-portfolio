@@ -110,15 +110,33 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-5">
-                    <div class="bg-dark-800 border border-dark-700 p-8 rounded-3xl shadow-2xl relative">
+                    <div class="bg-dark-800 border border-dark-700 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
                         <div class="absolute -top-4 -right-4 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl"></div>
-                        <h3 class="text-xl font-bold text-white mb-4">Profile Overview</h3>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-center gap-3"><i class="fa-solid fa-location-dot text-brand-400 w-5"><span>Sydney, NSW, Australia</span></i></li>
-                            <li class="flex items-center gap-3"><i class="fa-solid fa-shield-halved text-brand-400 w-5"><span>Australian Citizen</span></i></li>
-                            <li class="flex items-center gap-3"><i class="fa-solid fa-graduation-cap text-brand-400 w-5"><span>Bachelor of Computer Science</span></i></li>
-                            <li class="flex items-center gap-3"><i class="fa-solid fa-award text-brand-400 w-5"><span>Certified SAFe® 6 Agilist</span></i></li>
-                            <li class="flex items-center gap-3"><i class="fa-solid fa-book-open text-brand-400 w-5"><span>Optus U Micro MBA – La Trobe</span></i></li>
+                        <div class="relative mb-6">
+                            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-400 mb-2">At a glance</p>
+                            <h3 class="text-2xl font-bold text-white">Profile Overview</h3>
+                        </div>
+                        <ul class="relative space-y-3">
+                            <li class="flex items-center gap-4 rounded-xl border border-dark-700/80 bg-dark-900/40 px-4 py-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+                                <span><span class="block text-xs font-medium uppercase tracking-wider text-gray-500">Location</span><span class="text-sm font-medium text-gray-200">Sydney, NSW, Australia</span></span>
+                            </li>
+                            <li class="flex items-center gap-4 rounded-xl border border-dark-700/80 bg-dark-900/40 px-4 py-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span>
+                                <span><span class="block text-xs font-medium uppercase tracking-wider text-gray-500">Citizenship</span><span class="text-sm font-medium text-gray-200">Australian Citizen</span></span>
+                            </li>
+                            <li class="flex items-center gap-4 rounded-xl border border-dark-700/80 bg-dark-900/40 px-4 py-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></span>
+                                <span><span class="block text-xs font-medium uppercase tracking-wider text-gray-500">Education</span><span class="text-sm font-medium text-gray-200">Bachelor of Computer Science</span></span>
+                            </li>
+                            <li class="flex items-center gap-4 rounded-xl border border-dark-700/80 bg-dark-900/40 px-4 py-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-award" aria-hidden="true"></i></span>
+                                <span><span class="block text-xs font-medium uppercase tracking-wider text-gray-500">Certification</span><span class="text-sm font-medium text-gray-200">Certified SAFe® 6 Agilist</span></span>
+                            </li>
+                            <li class="flex items-center gap-4 rounded-xl border border-dark-700/80 bg-dark-900/40 px-4 py-3">
+                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+                                <span><span class="block text-xs font-medium uppercase tracking-wider text-gray-500">Executive education</span><span class="text-sm font-medium text-gray-200">Optus U Micro MBA – La Trobe</span></span>
+                            </li>
                         </ul>
                     </div>
                 </div>
