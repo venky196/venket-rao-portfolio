@@ -11,3 +11,21 @@
   --color-brand-600: #2563eb;
   --color-brand-400: #60a5fa;
 }
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  [data-cursor-parallax] {
+    transform: translate3d(var(--cursor-shift-x, 0px), var(--cursor-shift-y, 0px), 0);
+    transition: transform 220ms ease-out;
+  }
+
+  [data-cursor-parallax].cursor-parallax-active {
+    transition-duration: 80ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-cursor-parallax] {
+    transform: none !important;
+    transition: none !important;
+  }
+}

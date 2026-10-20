@@ -42,7 +42,7 @@
     <!-- Hero Section -->
     <header class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden border-b border-dark-700">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-dark-900 to-dark-900 pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 relative z-10" data-cursor-parallax>
             <div class="max-w-3xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold mb-6 uppercase tracking-wider">
                     <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> Available for Strategic Leadership & Advisory
@@ -87,7 +87,7 @@
 
     <!-- About Section -->
     <section id="about" class="py-20 md:py-32 border-b border-dark-700 bg-dark-800/20">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6" data-cursor-parallax>
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-5">
                     <div class="bg-dark-800 border border-dark-700 p-8 rounded-3xl shadow-2xl relative overflow-hidden">
@@ -135,7 +135,7 @@
 
     <!-- Executive Capabilities Section -->
     <section id="capabilities" class="py-20 md:py-32 border-b border-dark-700">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6" data-cursor-parallax>
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Executive Capabilities</h2>
                 <p class="text-gray-400">Core pillars of technical leadership, commercial control, and quality governance.</p>
@@ -195,7 +195,7 @@
 
     <!-- Professional Experience Section -->
     <section id="experience" class="py-20 md:py-32 border-b border-dark-700 bg-dark-800/20">
-        <div class="max-w-5xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6" data-cursor-parallax>
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Professional Experience</h2>
                 <p class="text-gray-400">Track record of leadership across top-tier telecommunications and technology enterprises.</p>
@@ -274,7 +274,7 @@
 
     <!-- Selected Enterprise Transformations -->
     <section id="transformations" class="py-20 md:py-32 border-b border-dark-700">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6" data-cursor-parallax>
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Selected Enterprise Transformations</h2>
                 <p class="text-gray-400">Key transformation programs participated.</p>
@@ -318,7 +318,7 @@
 
     <!-- Technology & Domain Expertise -->
     <section id="expertise" class="py-20 md:py-32 border-b border-dark-700 bg-dark-800/20">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6" data-cursor-parallax>
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">Technology & Domain Expertise</h2>
                 <p class="text-gray-400">Comprehensive technical stack and domain specialisations.</p>
@@ -381,7 +381,7 @@
 
     <!-- Contact & Footer Section -->
     <footer id="contact" class="py-20 bg-dark-900 border-t border-dark-700">
-        <div class="max-w-5xl mx-auto px-6 text-center">
+        <div class="max-w-5xl mx-auto px-6 text-center" data-cursor-parallax>
             <h2 class="text-3xl font-bold text-white mb-4">Let’s Connect</h2>
             <p class="text-gray-400 mb-10 max-w-xl mx-auto">
                 Discuss strategic quality transformations, executive advisory, or senior test leadership opportunities in Sydney or across Australia.
@@ -418,6 +418,62 @@
                 menu.classList.add('hidden');
             });
         });
+
+        const parallaxMedia = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 768px)');
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const parallaxSections = [...document.querySelectorAll('[data-cursor-parallax]')];
+        let activeSection = null;
+        let pendingFrame = null;
+        let pointerPosition = null;
+
+        function resetParallax() {
+            if (!activeSection) return;
+            activeSection.style.setProperty('--cursor-shift-x', '0px');
+            activeSection.style.setProperty('--cursor-shift-y', '0px');
+            activeSection.classList.remove('cursor-parallax-active');
+            activeSection = null;
+        }
+
+        function updateParallax() {
+            pendingFrame = null;
+            if (!pointerPosition || !parallaxMedia.matches || reducedMotion.matches) {
+                resetParallax();
+                return;
+            }
+
+            const section = document.elementFromPoint(pointerPosition.x, pointerPosition.y)?.closest('[data-cursor-parallax]');
+            if (section !== activeSection) {
+                resetParallax();
+                activeSection = section;
+                activeSection?.classList.add('cursor-parallax-active');
+            }
+            if (!activeSection) return;
+
+            const bounds = activeSection.getBoundingClientRect();
+            const offsetX = (pointerPosition.x - (bounds.left + bounds.width / 2)) / bounds.width;
+            const offsetY = (pointerPosition.y - (bounds.top + bounds.height / 2)) / bounds.height;
+            activeSection.style.setProperty('--cursor-shift-x', `${-offsetX * 10}px`);
+            activeSection.style.setProperty('--cursor-shift-y', `${-offsetY * 10}px`);
+        }
+
+        document.addEventListener('pointermove', event => {
+            if (event.pointerType !== 'mouse') return;
+            pointerPosition = { x: event.clientX, y: event.clientY };
+            if (pendingFrame === null) pendingFrame = requestAnimationFrame(updateParallax);
+        });
+
+        document.addEventListener('pointerleave', () => {
+            pointerPosition = null;
+            resetParallax();
+        });
+
+        window.addEventListener('scroll', () => {
+            pointerPosition = null;
+            resetParallax();
+        }, { passive: true });
+
+        parallaxMedia.addEventListener('change', resetParallax);
+        reducedMotion.addEventListener('change', resetParallax);
     </script>
 </body>
 </html>
